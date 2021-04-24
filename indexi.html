@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+    <script>
+      function getStudent() {
+        const students = [
+          "Esayas",
+          "George",
+          "Tekalegn",
+          "Manaye",
+          "Sewnet",
+          "Abeba",
+          "Abeba Berhe",
+          "Selame",
+          "Addis",
+          "Alebachew",
+          "Stefeny",
+          "Leo",
+          "Donta",
+          "Ak",
+          "Tayech",
+          "Koff",
+          "Negre",
+          "Belete",
+          "Alex",
+          "Daniel",
+        ];
+        const numberOfStudents = students.length;
+        const randomNumber = Math.floor(Math.random() * numberOfStudents);
+
+        const selectedStudent = students[randomNumber];
+        document.getElementById("app").innerHTML = selectedStudent;
+      }
+ 
+    </script>
+    <style>
+      body {
+        width: 400px;
+        margin: auto;
+      }
+
+      h3 {
+        text-align: center;
+        margin-top: 1px;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto auto;
+        grid-gap: 10px;
+        background-color: #eee;
+        padding: 10px;
+      }
+
+      .grid-container > div {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px 0;
+        font-size: 20px;
+      }
+      .heading1,
+      .s {
+        grid-column: 1 / 7;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <div class="grid-container">
+        <div class="heading1">
+          <h3>Student Selector</h3>
+        </div>
+
+        <div class="s">
+          <div class="row">
+            <div class="col-md-6">
+              <button
+                type="button"
+                class="btn btn-success text-center"
+                onClick="getStudent()"
+              >
+                Select a student
+              </button>
+            </div>
+            <div class="col-md-6">
+              <div id="app" class="font-weight-bold"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
