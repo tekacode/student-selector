@@ -39,6 +39,7 @@
           "localStroageParticpatedStudents",
           JSON.stringify([])
         );
+        location.reload();
       }
       function getStudents() {
         let studentsCopy = JSON.parse(
@@ -58,8 +59,7 @@
           JSON.stringify(studentsCopy)
         );
 
-        document.getElementById("app").innerHTML =
-          selectedStudent + numberOfStudents;
+        document.getElementById("app").innerHTML = selectedStudent;
         participatedAndNotParticipatedStudents();
       }
 
@@ -140,24 +140,33 @@
 
         <div class="s">
           <div class="row">
-            <div class="col-md-6">
-              <button
-                type="button"
-                class="btn btn-success text-center"
-                onClick="getStudents()"
-              >
-                Select a student
-              </button>
-              <button
-                type="button"
-                class="btn btn-dark text-center"
-                onClick="setSessionStorages()"
-              >
-                Start over
-              </button>
+            <div class="col-sm-6">
+              <div id="app" style="font-size: 2rem; align: center"></div>
             </div>
-            <div class="col-md-6">
-              <div id="app" class="font-weight-bold"></div>
+
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-dark text-center"
+                    onClick="setSessionStorages()"
+                    style="margin-bottom: 5px; float: right"
+                  >
+                    Start over
+                  </button>
+                </div>
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-success text-center"
+                    onClick="getStudents()"
+                    style="float: right"
+                  >
+                    Select a student
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
