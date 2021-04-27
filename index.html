@@ -8,8 +8,8 @@
       crossorigin="anonymous"
     />
     <script>
-      function getStudent() {
-        const students = [
+      function setSessionStorages() {
+        const allStudents = [
           "Esayas",
           "George",
           "Tekalegn",
@@ -31,18 +31,78 @@
           "Alex",
           "Daniel",
         ];
-        const numberOfStudents = students.length;
-        const randomNumber = Math.floor(Math.random() * numberOfStudents);
-
-        const selectedStudent = students[randomNumber];
-        document.getElementById("app").innerHTML = selectedStudent;
+        sessionStorage.setItem(
+          "localStorageStudents",
+          JSON.stringify(allStudents)
+        );
+        sessionStorage.setItem(
+          "localStroageParticpatedStudents",
+          JSON.stringify([])
+        );
       }
- 
+      function getStudents() {
+        let studentsCopy = JSON.parse(
+          sessionStorage.getItem("localStorageStudents")
+        );
+
+        let numberOfStudents = studentsCopy.length;
+        let randomNumber = Math.floor(Math.random() * numberOfStudents);
+
+        let selectedStudent = studentsCopy[randomNumber];
+        addParticipatedStudent(selectedStudent);
+
+        studentsCopy.splice(randomNumber, 1);
+
+        sessionStorage.setItem(
+          "localStorageStudents",
+          JSON.stringify(studentsCopy)
+        );
+
+        document.getElementById("app").innerHTML =
+          selectedStudent + numberOfStudents;
+        participatedAndNotParticipatedStudents();
+      }
+
+      // Display table data
+      function participatedAndNotParticipatedStudents() {
+        let studentsCopy = JSON.parse(
+          sessionStorage.getItem("localStorageStudents")
+        );
+        let tableString1 = "";
+        studentsCopy.forEach((element) => {
+          tableString1 += "<tr>" + "<td>" + element + "</td>" + "</tr>";
+        });
+
+        let participatedStudentsCopy = JSON.parse(
+          sessionStorage.getItem("localStroageParticpatedStudents")
+        );
+        let tableString2 = "";
+        participatedStudentsCopy.forEach((element) => {
+          tableString2 += "<tr>" + "<td>" + element + "</td>" + "</tr>";
+        });
+
+        document.getElementById("tone").innerHTML = tableString1;
+        document.getElementById("ttwo").innerHTML = tableString2;
+      }
+
+      // Add a student to local storage
+      function addParticipatedStudent(aStudent) {
+        let participatedStudentsLs = JSON.parse(
+          sessionStorage.getItem("localStroageParticpatedStudents")
+        );
+        participatedStudentsLs.push(aStudent);
+        sessionStorage.setItem(
+          "localStroageParticpatedStudents",
+          JSON.stringify(participatedStudentsLs)
+        );
+      }
     </script>
     <style>
       body {
         width: 400px;
         margin: auto;
+        font-size: 16px;
+        background-color: gray;
       }
 
       h3 {
@@ -56,15 +116,17 @@
         grid-gap: 10px;
         background-color: #eee;
         padding: 10px;
+        background-color: teal;
       }
 
       .grid-container > div {
         background-color: rgba(255, 255, 255, 0.8);
-        padding: 20px 0;
+        padding: 10px 0;
         font-size: 20px;
       }
       .heading1,
-      .s {
+      .s,
+      .t {
         grid-column: 1 / 7;
       }
     </style>
@@ -82,13 +144,50 @@
               <button
                 type="button"
                 class="btn btn-success text-center"
-                onClick="getStudent()"
+                onClick="getStudents()"
               >
                 Select a student
+              </button>
+              <button
+                type="button"
+                class="btn btn-dark text-center"
+                onClick="setSessionStorages()"
+              >
+                Start over
               </button>
             </div>
             <div class="col-md-6">
               <div id="app" class="font-weight-bold"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t">
+          <div class="row">
+            <div class="col-sm-6">
+              <table class="table" style="border-right: dotted">
+                <thead>
+                  <tr>
+                    <th scope="col" style="font-size: 0.8rem">
+                      Not Participated
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="tone"></tbody>
+              </table>
+            </div>
+
+            <div class="col-sm-6">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col-6" style="font-size: 0.8rem">
+                      Participated
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="ttwo"></tbody>
+              </table>
             </div>
           </div>
         </div>
